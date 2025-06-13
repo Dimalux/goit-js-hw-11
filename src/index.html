@@ -1,24 +1,44 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vanilla App Template</title>
+    <title>Image Search</title>
     <link rel="stylesheet" href="./css/styles.css" />
+    <link rel="stylesheet" href="./css/loader.css" />
   </head>
+
+
   <body>
-    
-<h1 class="item"><b>HELLO</b></h1>
+    <header class="header">
+      <form class="search-form">
+        <input
+          type="text"
+          name="searchQuery"
+          placeholder="Search images..."
+                  />
+        <button type="submit" class="search-btn">Search</button>
+      </form>
+    </header>
 
+    <!-- Лоадер - Індикатор завантаження -->
+<div id="loader" class="loader is-hidden">
+  <div class="loader-spinner"></div>
+  </div>
 
-<form class="form">
-  <label>
-    <input type="text" name="search-text" placeholder="Search images..." required>
-  </label>
-  <button type="submit">Search</button>
-</form>
+<!-- <div id="loader" class="loader is-hidden">
+  <div class="loader-inner ball-spin-fade-loader">
+    <div></div><div></div><div></div><div></div>
+    <div></div><div></div><div></div><div></div>
+  </div>
+</div> -->
 
+    <main>
+      <ul class="gallery"></ul>
+     
+
+    </main>
 
     <script type="module" src="./main.js"></script>
   </body>

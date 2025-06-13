@@ -1,77 +1,69 @@
 
+// Цей рядок імпортує бібліотеку iziToast — це популярна JavaScript-бібліотека для створення гарних сповіщень (тостів) у вебдодатках.
+import iziToast from 'izitoast';
+
+// Цей рядок імпортує CSS-стилі iziToast.
+// Вони потрібні, щоб зробити візуальне оформлення сповіщень відповідно до дизайну iziToast (кольори, анімації, розташування тостів тощо).
+import 'izitoast/dist/css/iziToast.min.css';
+
+// Бібліотека з гарними індикаторами завантаження css-loader
+import './css/loader.css';
+
+import { getImagesByQuery } from './js/pixabay-api';
+import { createGallery, clearGallery, showLoader, hideLoader } from './js/render-functions';
+
+const form = document.querySelector('.search-form');
+
+let currentPage = 1;
+let currentQuery = '';
+
+form.addEventListener('submit', handleSubmit);
+
+function handleSubmit(event) {
+  event.preventDefault();
+  currentPage = 1;
+  currentQuery = event.target.elements.searchQuery.value.trim();
+
+  if (!currentQuery) {
+    iziToast.error({
+      message: 'Please enter a search query',
+      position: 'topRight',
+    });
+    return;
+  }
+
+  showLoader();     // Показуємо лоадер
+  clearGallery();   // Очищаємо попередню галерею
+
+  getImagesByQuery(currentQuery, currentPage)
+    .then(data => {
+      if (data.hits.length === 0) {
+
+        //  Метод бібліотеки iziToast, який показує інформаційне (info) повідомлення. Якщо бекенд повертає порожній масив, це означає, що нічого підходящого не було знайдено. У такому випадку відображай повідомлення з текстом:
+//  'Sorry, there are no images matching your search query. Please try again!'
+        iziToast.error({
+          message: 'Sorry, there are no images matching your search query. Please try again!',
+          position: 'topRight',
+        });
+        return;
+      }
+
+      createGallery(data.hits);
+    })
+    .catch(error => {
+
+      
+      iziToast.error({
+                message: 'ERROR! Something went wrong. Please try again later.',
+        position: 'topRight',
+      });
+      console.error(error);
+    })
+    .finally(() => {
+      hideLoader();  // Завжди ховаємо лоадер, навіть при помилці
+    });
+
+  event.target.reset();
+}
 
 
-
-
-// const list = document.querySelector(".list");  
-// const params = new URLSearchParams({
-//     _limit: 4,
-//     _page: 2
-// })
-
-
-// fetch(`https://jsonplaceholder.typicode.com/todos?${params}`)
-// .then(res => {console.log("then1", res);
-//     if (!res.ok) {
-//         throw new Error("ER")
-//     }
-//     return res.json();
-// })
-// .then(data => {
-//     console.log("then2", data);    
-//     list.insertAdjacentHTML("beforeend", createData(data));
-// })
-// .catch(error => console.log("catch", error));
-
-
-// fetch(`https://jsonplaceholder.typicode.com/users`)
-// .then(res => {console.log("then1", res);
-//     if (!res.ok) {
-//         throw new Error("ER")
-//     }
-//     return res.json();
-// })
-// .then(data => {
-//     console.log("then2", data);    
-//     // list.insertAdjacentHTML("beforeend", createData(data));
-// })
-// .catch(error => console.log("catch", error));
-
-
-// function createData(arr) {
-// return  arr.map(({ id, title, completed }) => `<li data-id="${id}" class="list-item">
-// <input type="checkbox" ${completed && "checked"}/>
-// <p>${title}</p>
-// </li>`
-// ).join("")
-// }
-
-
-// function foo(url) {
-//     return fetch(url)
-//     .then(res => {
-//         if(!response.ok) {
-// throw new Error("No OK");
-//     } 
-// return res.json()
-// })} 
-
-// foo("https://jsonplaceholder.typicode.com/users")
-
-
-import axios from 'axios';
-
-const API_KEY = "50787945-1edbab8bb6a94afd781f3e3fd";
-
-const params = new URLSearchParams({
-key: API_KEY,
-q: "yellow+flower",
-image_type: "photo",
-orientation: "horizontal",
-safesearch: true
-});
-
-console.log(params.toString());
-
-
-fetch(`https://pixabay.com/api?${params}`)
