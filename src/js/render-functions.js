@@ -1,29 +1,16 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Цей рядок імпортує саму бібліотеку SimpleLightbox — це JavaScript-бібліотека, яка дозволяє легко створювати ефект лайтбоксу (lightbox) для зображень. Тобто, коли користувач натискає на зображення, воно відкривається в модальному вікні з затемненим фоном, стрілками навігації, підписами тощо.
 import SimpleLightbox from 'simplelightbox';
 
 // Цей рядок імпортує CSS-стилі, необхідні для коректного відображення лайтбоксу: стилі модального вікна, анімацій, кнопок закриття/навігації тощо.
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
-
 const gallery = document.querySelector('.gallery');
+
+// Створюємо новий екземпляр бібліотеки SimpleLightbox, яка відкриває зображення у модальному вікні (лайтбоксі), коли клікає по зображенню.
 let lightbox = new SimpleLightbox('.gallery a', {
   captionsData: 'alt',
   captionDelay: 300,
 });
-
 
 // Ця функція повинна приймати масив images, створювати HTML-розмітку для галереї, додавати її в контейнер галереї та викликати метод екземпляра SimpleLightbox refresh(). Нічого не повертає.
 export function createGallery(images) {
@@ -52,30 +39,19 @@ export function createGallery(images) {
   lightbox.refresh();
 }
 
-
 // Ця функція нічого не приймає та повинна очищати вміст контейнера галереї. Нічого не повертає.
 export function clearGallery() {
   gallery.innerHTML = '';
 }
 
-// export function showLoader() {
-//   const loader = document.querySelector('.loader');
-//   loader.classList.remove('is-hidden');
-// }
-
-// export function hideLoader() {
-//   const loader = document.querySelector('.loader');
-//   loader.classList.add('is-hidden');
-// }
-
-
 //  Ця функція нічого не приймає, повинна додавати клас для відображення лоадера. Нічого не повертає.
 export function showLoader() {
-  document.getElementById('loader').classList.remove('is-hidden');
+  const loader = document.querySelector('.loader');
+  loader.classList.remove('is-hidden');
 }
-
 
 // Ця функція нічого не приймає, повинна прибирати клас для відображення лоадера. Нічого не повертає.
 export function hideLoader() {
-  document.getElementById('loader').classList.add('is-hidden');
+  const loader = document.querySelector('.loader');
+  loader.classList.add('is-hidden');
 }

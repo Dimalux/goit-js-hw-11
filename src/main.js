@@ -1,4 +1,3 @@
-
 // Цей рядок імпортує бібліотеку iziToast — це популярна JavaScript-бібліотека для створення гарних сповіщень (тостів) у вебдодатках.
 import iziToast from 'izitoast';
 
@@ -10,7 +9,12 @@ import 'izitoast/dist/css/iziToast.min.css';
 import './css/loader.css';
 
 import { getImagesByQuery } from './js/pixabay-api';
-import { createGallery, clearGallery, showLoader, hideLoader } from './js/render-functions';
+import {
+  createGallery,
+  clearGallery,
+  showLoader,
+  hideLoader,
+} from './js/render-functions';
 
 const form = document.querySelector('.search-form');
 
@@ -32,17 +36,17 @@ function handleSubmit(event) {
     return;
   }
 
-  showLoader();     // Показуємо лоадер
-  clearGallery();   // Очищаємо попередню галерею
+  showLoader(); // Показуємо лоадер
+  clearGallery(); // Очищаємо попередню галерею
 
   getImagesByQuery(currentQuery, currentPage)
     .then(data => {
       if (data.hits.length === 0) {
-
         //  Метод бібліотеки iziToast, який показує інформаційне (info) повідомлення. Якщо бекенд повертає порожній масив, це означає, що нічого підходящого не було знайдено. У такому випадку відображай повідомлення з текстом:
-//  'Sorry, there are no images matching your search query. Please try again!'
+        //  'Sorry, there are no images matching your search query. Please try again!'
         iziToast.error({
-          message: 'Sorry, there are no images matching your search query. Please try again!',
+          message:
+            'Sorry, there are no images matching your search query. Please try again!',
           position: 'topRight',
         });
         return;
@@ -51,19 +55,15 @@ function handleSubmit(event) {
       createGallery(data.hits);
     })
     .catch(error => {
-
-      
       iziToast.error({
-                message: 'ERROR! Something went wrong. Please try again later.',
+        message: 'ERROR! Something went wrong. Please try again later.',
         position: 'topRight',
       });
       console.error(error);
     })
     .finally(() => {
-      hideLoader();  // Завжди ховаємо лоадер, навіть при помилці
+      hideLoader(); // Ховаємо лоадер, навіть при помилці
     });
 
   event.target.reset();
 }
-
-
