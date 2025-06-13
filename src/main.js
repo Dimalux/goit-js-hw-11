@@ -16,7 +16,7 @@ import {
   hideLoader,
 } from './js/render-functions';
 
-const form = document.querySelector('.search-form');
+const form = document.querySelector('.form');
 
 let currentPage = 1;
 let currentQuery = '';

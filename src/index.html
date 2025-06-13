@@ -10,14 +10,14 @@
 
   <body>
     <header class="header">
-      <form class="search-form">
+      <form class="form">
         <input type="text" name="searchQuery" placeholder="Search images..." />
         <button type="submit" class="search-btn">Search</button>
       </form>
     </header>
 
     <!-- Лоадер - Індикатор завантаження -->
-    <div id="loader" class="loader is-hidden">
+    <span id="loader" class="loader is-hidden">
       <div class="loader-inner ball-spin-fade-loader">
         <div></div>
         <div></div>
@@ -28,7 +28,7 @@
         <div></div>
         <div></div>
       </div>
-    </div>
+    </span>
 
     <main>
       <ul class="gallery"></ul>
